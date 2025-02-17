@@ -4,6 +4,7 @@ import compression from "compression";
 import express from "express";
 import morgan from "morgan";
 import apiRouter from './routes/api';
+import sequelize from './config/database';
 
 const viteDevServer =
   process.env.NODE_ENV === "production"
@@ -69,7 +70,19 @@ app.all(
   })
 );
 
-const port = process.env.PORT || 3000;
-app.listen(port, () =>
-  console.log(`Express server listening at http://localhost:${port}`)
-);
+const PORT = process.env.PORT || 3000;
+
+async function startServer() {
+    try {
+        await sequelize.sync();
+        console.log('Database synchronized');
+        
+        app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Unable to start server:', error);
+    }
+}
+
+startServer();

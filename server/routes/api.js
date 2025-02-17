@@ -1,4 +1,6 @@
 import { Router, json } from 'express';
+import userRouter from './users';
+
 const router = Router();
 
 // Middleware example
@@ -10,6 +12,9 @@ function authenticateUser(req, res, next) {
   // Add your authentication logic here
   next();
 }
+
+// Mount feature-specific routers
+router.use('/users', userRouter);
 
 // handle API requests
 router.get("/status", (request, response) => {
@@ -33,10 +38,12 @@ router.post('/data', json(), (req, res) => {
 });
 
 // User endpoint with URL parameters
+/*
 router.get('/users/:id', (req, res) => {
   const userId = req.params.id;
   res.json({ userId, message: `Fetching user ${userId}` });
 });
+*/
 
 // Search endpoint with query parameters
 router.get('/search', (req, res) => {

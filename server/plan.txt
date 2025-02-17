@@ -1,0 +1,19 @@
+
+# Folder structure:
+
+models/
+
+controllers/
+
+routes/
+├── auth/
+│   └── middleware.js
+├── users/
+│   └── users.routes.js
+├── products/
+│   └── products.routes.js
+├── orders/
+│   └── orders.routes.js
+└── api.js
+
+index.ts
