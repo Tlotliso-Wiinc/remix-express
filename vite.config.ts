@@ -31,4 +31,7 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  server: {
+    hmr: true, // Explicitly enable hot reloading
+  },
 });
