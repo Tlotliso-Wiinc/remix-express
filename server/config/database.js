@@ -8,6 +8,8 @@ const __dirname = dirname(__filename);
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: join(__dirname, '../database.sqlite'),
+  //logging: (...msg) => console.log(msg),
+  //logging: console.log,
   logging: false
 });
 

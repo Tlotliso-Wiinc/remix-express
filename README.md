@@ -1,4 +1,4 @@
-# Welcome to Remix!
+# Welcome to the Mokhatlo Financial Management Project!
 
 - 📖 [Remix docs](https://remix.run/docs)
 

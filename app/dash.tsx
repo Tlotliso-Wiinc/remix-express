@@ -1,3 +1,4 @@
+import React from 'react';
 import { 
   Users, 
   DollarSign, 
@@ -13,16 +14,43 @@ import {
   HandCoins
 } from 'lucide-react';
 
-import type { MetaFunction } from "@remix-run/node";
+const Dash = () => {
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Financial Management System Dashboard" },
-    { name: "description", content: "Welcome to the Financial Management System Dashboard for a Savings and Credit Organization!" },
+  const cards = [
+    {
+      title: "Total Users",
+      value: "14,526",
+      change: "+12.5%",
+      trend: "up",
+      icon: Users,
+      description: "Active users this month"
+    },
+    {
+      title: "Revenue",
+      value: "LSL 45,265",
+      change: "+8.2%",
+      trend: "up",
+      icon: DollarSign,
+      description: "Monthly revenue"
+    },
+    {
+      title: "Sales",
+      value: "1,245",
+      change: "-3.1%",
+      trend: "down",
+      icon: ShoppingCart,
+      description: "Total orders this month"
+    },
+    {
+      title: "Performance",
+      value: "88.5%",
+      change: "+4.3%",
+      trend: "up",
+      icon: TrendingUp,
+      description: "Average response time"
+    }
   ];
-};
 
-export default function Dashboard() {
   const stats = [
     {
       title: 'Members',
@@ -56,8 +84,27 @@ export default function Dashboard() {
       icon: HandCoins,
       color: 'orange' as 'orange'
     },
+  /*
+    {
+      title: 'Sales',
+      value: '1,234',
+      change: '-3.2%',
+      isIncrease: false,
+      icon: ShoppingCart,
+      color: 'purple' as 'purple'
+    },
+    {
+      title: 'Conversion Rate',
+      value: '3.8%',
+      change: '+2.1%',
+      isIncrease: true,
+      icon: Activity,
+      color: 'orange' as 'orange'
+    }
+  */
   ];
 
+  // StatCard component remains the same...
   interface Stat {
     title: string;
     value: string;
@@ -66,7 +113,7 @@ export default function Dashboard() {
     icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     color: 'emerald' | 'blue' | 'purple' | 'orange';
   }
-  
+
   const StatCard = ({ stat }: { stat: Stat }) => {
     const colorVariants = {
       emerald: 'bg-emerald-50 text-emerald-600',
@@ -76,7 +123,7 @@ export default function Dashboard() {
     };
 
     return (
-      <div className="bg-white p-6 rounded-sm border-2 border-gray-250">
+      <div className="bg-white p-6 rounded-md border-2 border-gray-300">
         <div className="flex justify-between items-start">
           <div>
             <p className="text-sm text-gray-500">{stat.title}</p>
@@ -102,7 +149,7 @@ export default function Dashboard() {
 
   return (
     <main className="p-6">
-
+      
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {stats.map((stat, index) => (
@@ -110,8 +157,49 @@ export default function Dashboard() {
         ))}
       </div>
 
-       {/* Recent Activity */}
-        <div className="bg-white p-6 rounded-sm border border-gray-100 mt-10">
+    {/*
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {cards.map((card) => {
+          const Icon = card.icon;
+          const isPositive = card.trend === "up";
+          
+          return (
+            <div 
+              key={card.title} 
+              className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex justify-between items-start">
+                <div className="space-y-0.5">
+                  <p className="text-sm text-gray-500">{card.title}</p>
+                  <div className="flex items-center space-x-2">
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      {card.value}
+                    </h2>
+                    <span className={`flex items-center text-sm ${
+                      isPositive ? 'text-green-600' : 'text-red-600'
+                    }`}>
+                      {isPositive ? (
+                        <ArrowUpRight className="h-4 w-4" />
+                      ) : (
+                        <ArrowDownRight className="h-4 w-4" />
+                      )}
+                      {card.change}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500">
+                    {card.description}
+                  </p>
+                </div>
+                <Icon className="h-5 w-5 text-gray-400" />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    */}
+
+      {/* Recent Activity */}
+        <div className="bg-white p-6 rounded-md border border-gray-100 mt-10">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-medium">Recent Activity</h3>
             <div className="flex items-center space-x-2">
@@ -121,7 +209,7 @@ export default function Dashboard() {
           </div>
           <div className="space-y-4">
             {[
-              { title: 'New transaction', description: 'Tlotliso Mafantiri is payed M19,000.00', time: '2 hours ago' },
+              { title: 'New sale', description: 'User purchased Premium Plan', time: '2 hours ago' },
               { title: 'New user', description: 'Sarah Smith joined the platform', time: '4 hours ago' },
               { title: 'System update', description: 'Version 2.1.0 deployed successfully', time: '6 hours ago' },
             ].map((activity, index) => (
@@ -138,7 +226,8 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
-
     </main>
   );
-}
+};
+
+export default Dash;

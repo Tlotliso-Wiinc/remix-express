@@ -1,5 +1,6 @@
 import { Router, json } from 'express';
 import userRouter from './users';
+import memberRouter from './members';
 
 const router = Router();
 
@@ -15,6 +16,7 @@ function authenticateUser(req, res, next) {
 
 // Mount feature-specific routers
 router.use('/users', userRouter);
+router.use('/members', memberRouter);
 
 // handle API requests
 router.get("/status", (request, response) => {
