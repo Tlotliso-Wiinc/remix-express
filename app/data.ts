@@ -1,42 +1,45 @@
+import dotenv from "dotenv";
 
-type Member = {
-    id?: string;
-    firstname?: string;
-    lastname?: string;
-    email?: string;
-    phone?: string;
+dotenv.config();
+
+export type Member = {
+  id?: string;
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  phone?: string;
 };
 
-export async function getMembers() {
-    try {
-        const response = await fetch('http://localhost:3000/api/members');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        //console.log('Success:', data);
-        return data;
-    } catch (error) {
-        console.error('Error:', error);
-    }
+async function fetchJSON(url: string, options?: RequestInit): Promise<any> {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
 }
 
-export async function addMember(member: Member) {
-    try {
-        const response = await fetch('http://localhost:3000/api/members', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(member),
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('Success:', data);
-        return data;
-    } catch (error) {
-        console.error('Error:', error);
-    }
+export async function getMembers(): Promise<any> {
+  try {
+    const url = `${process.env.HOST}/api/members`;
+    return await fetchJSON(url);
+  } catch (error) {
+    console.error("Error fetching members:", error);
+    throw error;
+  }
+}
+
+export async function addMember(member: Member): Promise<any> {
+  try {
+    const url = `${process.env.HOST}/api/members`;
+    return await fetchJSON(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(member),
+    });
+  } catch (error) {
+    console.error("Error adding member:", error);
+    throw error;
+  }
 }

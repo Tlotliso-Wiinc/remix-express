@@ -19,6 +19,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "isbot": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
